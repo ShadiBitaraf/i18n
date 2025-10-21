@@ -1,5 +1,6 @@
 import {Suspense} from 'react';
 import {Await, NavLink} from 'react-router';
+import {useTranslation} from 'react-i18next';
 import type {FooterQuery, HeaderQuery} from 'storefrontapi.generated';
 
 interface FooterProps {
@@ -74,42 +75,42 @@ function FooterMenu({
 }
 
 const FALLBACK_FOOTER_MENU = {
-  id: 'gid://shopify/Menu/199655620664',
+  id: 'gid://shopify/Menu/199655620664', // i18n-skip: Shopify GraphQL ID
   items: [
     {
-      id: 'gid://shopify/MenuItem/461633060920',
-      resourceId: 'gid://shopify/ShopPolicy/23358046264',
+      id: 'gid://shopify/MenuItem/461633060920', // i18n-skip: Shopify GraphQL ID
+      resourceId: 'gid://shopify/ShopPolicy/23358046264', // i18n-skip: Shopify GraphQL ID
       tags: [],
       title: 'Privacy Policy',
-      type: 'SHOP_POLICY',
-      url: '/policies/privacy-policy',
+      type: 'SHOP_POLICY', // i18n-skip: constant
+      url: '/policies/privacy-policy', // i18n-skip: URL
       items: [],
     },
     {
-      id: 'gid://shopify/MenuItem/461633093688',
-      resourceId: 'gid://shopify/ShopPolicy/23358013496',
+      id: 'gid://shopify/MenuItem/461633093688', // i18n-skip: Shopify GraphQL ID
+      resourceId: 'gid://shopify/ShopPolicy/23358013496', // i18n-skip: Shopify GraphQL ID
       tags: [],
       title: 'Refund Policy',
-      type: 'SHOP_POLICY',
-      url: '/policies/refund-policy',
+      type: 'SHOP_POLICY', // i18n-skip: constant
+      url: '/policies/refund-policy', // i18n-skip: URL
       items: [],
     },
     {
-      id: 'gid://shopify/MenuItem/461633126456',
-      resourceId: 'gid://shopify/ShopPolicy/23358111800',
+      id: 'gid://shopify/MenuItem/461633126456', // i18n-skip: Shopify GraphQL ID
+      resourceId: 'gid://shopify/ShopPolicy/23358111800', // i18n-skip: Shopify GraphQL ID
       tags: [],
       title: 'Shipping Policy',
-      type: 'SHOP_POLICY',
-      url: '/policies/shipping-policy',
+      type: 'SHOP_POLICY', // i18n-skip: constant
+      url: '/policies/shipping-policy', // i18n-skip: URL
       items: [],
     },
     {
-      id: 'gid://shopify/MenuItem/461633159224',
-      resourceId: 'gid://shopify/ShopPolicy/23358079032',
+      id: 'gid://shopify/MenuItem/461633159224', // i18n-skip: Shopify GraphQL ID
+      resourceId: 'gid://shopify/ShopPolicy/23358079032', // i18n-skip: Shopify GraphQL ID
       tags: [],
       title: 'Terms of Service',
-      type: 'SHOP_POLICY',
-      url: '/policies/terms-of-service',
+      type: 'SHOP_POLICY', // i18n-skip: constant
+      url: '/policies/terms-of-service', // i18n-skip: URL
       items: [],
     },
   ],

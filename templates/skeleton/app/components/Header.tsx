@@ -7,6 +7,7 @@ import {
 } from '@shopify/hydrogen';
 import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
 import {useAside} from '~/components/Aside';
+import {useTranslation} from 'react-i18next';
 
 interface HeaderProps {
   header: HeaderQuery;
@@ -53,6 +54,7 @@ export function HeaderMenu({
 }) {
   const className = `header-menu-${viewport}`;
   const {close} = useAside();
+  const {t} = useTranslation();
 
   return (
     <nav className={className} role="navigation">
@@ -64,7 +66,7 @@ export function HeaderMenu({
           style={activeLinkStyle}
           to="/"
         >
-          Home
+          {t('skeleton.header.menu.home')}
         </NavLink>
       )}
       {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
@@ -99,13 +101,14 @@ function HeaderCtas({
   isLoggedIn,
   cart,
 }: Pick<HeaderProps, 'isLoggedIn' | 'cart'>) {
+  const {t} = useTranslation();
   return (
     <nav className="header-ctas" role="navigation">
       <HeaderMenuMobileToggle />
       <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
-        <Suspense fallback="Sign in">
-          <Await resolve={isLoggedIn} errorElement="Sign in">
-            {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
+        <Suspense fallback={t('skeleton.header.account.signIn')}>
+          <Await resolve={isLoggedIn} errorElement={t('skeleton.header.account.signIn')}>
+            {(isLoggedIn) => (isLoggedIn ? t('skeleton.header.account.account') : t('skeleton.header.account.signIn'))}
           </Await>
         </Suspense>
       </NavLink>
@@ -129,9 +132,10 @@ function HeaderMenuMobileToggle() {
 
 function SearchToggle() {
   const {open} = useAside();
+  const {t} = useTranslation();
   return (
     <button className="reset" onClick={() => open('search')}>
-      Search
+      {t('skeleton.header.search.button')}
     </button>
   );
 }
@@ -139,6 +143,7 @@ function SearchToggle() {
 function CartBadge({count}: {count: number | null}) {
   const {open} = useAside();
   const {publish, shop, cart, prevCart} = useAnalytics();
+  const {t} = useTranslation();
 
   return (
     <a
@@ -154,7 +159,7 @@ function CartBadge({count}: {count: number | null}) {
         } as CartViewPayload);
       }}
     >
-      Cart {count === null ? <span>&nbsp;</span> : count}
+      {t('skeleton.header.cart.label')} {count === null ? <span>&nbsp;</span> : count}
     </a>
   );
 }

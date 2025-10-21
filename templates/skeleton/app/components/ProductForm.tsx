@@ -1,4 +1,5 @@
 import {Link, useNavigate} from 'react-router';
+import {useTranslation} from 'react-i18next';
 import {type MappedProductOptions} from '@shopify/hydrogen';
 import type {
   Maybe,
@@ -15,6 +16,7 @@ export function ProductForm({
   productOptions: MappedProductOptions[];
   selectedVariant: ProductFragment['selectedOrFirstAvailableVariant'];
 }) {
+  const {t} = useTranslation();
   const navigate = useNavigate();
   const {open} = useAside();
   return (
@@ -118,7 +120,7 @@ export function ProductForm({
             : []
         }
       >
-        {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
+        {selectedVariant?.availableForSale ? t('skeleton.product.addToCart') : t('skeleton.product.soldOut')}
       </AddToCartButton>
     </div>
   );

@@ -16,6 +16,7 @@ import {FOOTER_QUERY, HEADER_QUERY} from '~/lib/fragments';
 import resetStyles from '~/styles/reset.css?url';
 import appStyles from '~/styles/app.css?url';
 import {PageLayout} from './components/PageLayout';
+import {useTranslation} from 'react-i18next';
 
 export type RootLoader = typeof loader;
 
@@ -185,7 +186,8 @@ export default function App() {
 
 export function ErrorBoundary() {
   const error = useRouteError();
-  let errorMessage = 'Unknown error';
+  const {t} = useTranslation();
+  let errorMessage = t('skeleton.error.unknown');
   let errorStatus = 500;
 
   if (isRouteErrorResponse(error)) {
@@ -197,7 +199,7 @@ export function ErrorBoundary() {
 
   return (
     <div className="route-error">
-      <h1>Oops</h1>
+      <h1>{t('skeleton.error.oops')}</h1>
       <h2>{errorStatus}</h2>
       {errorMessage && (
         <fieldset>

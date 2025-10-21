@@ -4,6 +4,7 @@ import {
   type HeadersFunction,
 } from 'react-router';
 import type {Route} from './+types/cart';
+import {useTranslation} from 'react-i18next';
 import type {CartQueryDataReturn} from '@shopify/hydrogen';
 import {CartForm} from '@shopify/hydrogen';
 import {CartMain} from '~/components/CartMain';
@@ -110,11 +111,12 @@ export async function loader({context}: Route.LoaderArgs) {
 }
 
 export default function Cart() {
+  const {t} = useTranslation();
   const cart = useLoaderData<typeof loader>();
 
   return (
     <div className="cart">
-      <h1>Cart</h1>
+      <h1>{t('skeleton.cart.heading')}</h1>
       <CartMain layout="page" cart={cart} />
     </div>
   );

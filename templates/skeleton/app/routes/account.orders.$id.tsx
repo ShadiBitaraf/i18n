@@ -1,5 +1,6 @@
 import {redirect, useLoaderData} from 'react-router';
 import type {Route} from './+types/account.orders.$id';
+import {useTranslation} from 'react-i18next';
 import {Money, Image} from '@shopify/hydrogen';
 import type {
   OrderLineItemFullFragment,
@@ -74,6 +75,7 @@ export async function loader({params, context}: Route.LoaderArgs) {
 }
 
 export default function OrderRoute() {
+  const {t} = useTranslation();
   const {
     order,
     lineItems,
@@ -83,20 +85,20 @@ export default function OrderRoute() {
   } = useLoaderData<typeof loader>();
   return (
     <div className="account-order">
-      <h2>Order {order.name}</h2>
-      <p>Placed on {new Date(order.processedAt!).toDateString()}</p>
+      <h2>{t('skeleton.account.orderDetail.order', {name: order.name})}</h2>
+      <p>{t('skeleton.account.orderDetail.placedOn', {date: new Date(order.processedAt!).toDateString()})}</p>
       {order.confirmationNumber && (
-        <p>Confirmation: {order.confirmationNumber}</p>
+        <p>{t('skeleton.account.orderDetail.confirmation', {confirmationNumber: order.confirmationNumber})}</p>
       )}
       <br />
       <div>
         <table>
           <thead>
             <tr>
-              <th scope="col">Product</th>
-              <th scope="col">Price</th>
-              <th scope="col">Quantity</th>
-              <th scope="col">Total</th>
+              <th scope="col">{t('skeleton.account.orderDetail.product')}</th>
+              <th scope="col">{t('skeleton.account.orderDetail.price')}</th>
+              <th scope="col">{t('skeleton.account.orderDetail.quantity')}</th>
+              <th scope="col">{t('skeleton.account.orderDetail.total')}</th>
             </tr>
           </thead>
           <tbody>
@@ -110,14 +112,14 @@ export default function OrderRoute() {
               discountPercentage) && (
               <tr>
                 <th scope="row" colSpan={3}>
-                  <p>Discounts</p>
+                  <p>{t('skeleton.account.orderDetail.discounts')}</p>
                 </th>
                 <th scope="row">
-                  <p>Discounts</p>
+                  <p>{t('skeleton.account.orderDetail.discounts')}</p>
                 </th>
                 <td>
                   {discountPercentage ? (
-                    <span>-{discountPercentage}% OFF</span>
+                    <span>{t('skeleton.account.orderDetail.discountOff', {percentage: discountPercentage})}</span>
                   ) : (
                     discountValue && <Money data={discountValue!} />
                   )}
@@ -126,10 +128,10 @@ export default function OrderRoute() {
             )}
             <tr>
               <th scope="row" colSpan={3}>
-                <p>Subtotal</p>
+                <p>{t('skeleton.account.orderDetail.subtotal')}</p>
               </th>
               <th scope="row">
-                <p>Subtotal</p>
+                <p>{t('skeleton.account.orderDetail.subtotal')}</p>
               </th>
               <td>
                 <Money data={order.subtotal!} />
@@ -137,10 +139,10 @@ export default function OrderRoute() {
             </tr>
             <tr>
               <th scope="row" colSpan={3}>
-                Tax
+                {t('skeleton.account.orderDetail.tax')}
               </th>
               <th scope="row">
-                <p>Tax</p>
+                <p>{t('skeleton.account.orderDetail.tax')}</p>
               </th>
               <td>
                 <Money data={order.totalTax!} />
@@ -148,10 +150,10 @@ export default function OrderRoute() {
             </tr>
             <tr>
               <th scope="row" colSpan={3}>
-                Total
+                {t('skeleton.account.orderDetail.total')}
               </th>
               <th scope="row">
-                <p>Total</p>
+                <p>{t('skeleton.account.orderDetail.total')}</p>
               </th>
               <td>
                 <Money data={order.totalPrice!} />
@@ -160,7 +162,7 @@ export default function OrderRoute() {
           </tfoot>
         </table>
         <div>
-          <h3>Shipping Address</h3>
+          <h3>{t('skeleton.account.orderDetail.shippingAddress')}</h3>
           {order?.shippingAddress ? (
             <address>
               <p>{order.shippingAddress.name}</p>
@@ -176,9 +178,9 @@ export default function OrderRoute() {
               )}
             </address>
           ) : (
-            <p>No shipping address defined</p>
+            <p>{t('skeleton.account.orderDetail.noShippingAddress')}</p>
           )}
-          <h3>Status</h3>
+          <h3>{t('skeleton.account.orderDetail.status')}</h3>
           <div>
             <p>{fulfillmentStatus}</p>
           </div>
@@ -187,7 +189,7 @@ export default function OrderRoute() {
       <br />
       <p>
         <a target="_blank" href={order.statusPageUrl} rel="noreferrer">
-          View Order Status →
+          {t('skeleton.account.orderDetail.viewOrderStatus')}
         </a>
       </p>
     </div>
