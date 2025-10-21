@@ -3,6 +3,7 @@ import type {Route} from './+types/collections._index';
 import {getPaginationVariables, Image} from '@shopify/hydrogen';
 import type {CollectionFragment} from 'storefrontapi.generated';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
+import {useTranslation} from 'react-i18next';
 
 export async function loader(args: Route.LoaderArgs) {
   // Start fetching non-critical data without blocking time to first byte
@@ -43,11 +44,12 @@ function loadDeferredData({context}: Route.LoaderArgs) {
 }
 
 export default function Collections() {
+  const {t} = useTranslation();
   const {collections} = useLoaderData<typeof loader>();
 
   return (
     <div className="collections">
-      <h1>Collections</h1>
+      <h1>{t('skeleton.collections.heading')}</h1>
       <PaginatedResourceSection<CollectionFragment>
         connection={collections}
         resourcesClassName="collections-grid"

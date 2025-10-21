@@ -7,9 +7,10 @@ import type {Route} from './+types/cart';
 import type {CartQueryDataReturn} from '@shopify/hydrogen';
 import {CartForm} from '@shopify/hydrogen';
 import {CartMain} from '~/components/CartMain';
+import {useTranslation} from 'react-i18next';
 
 export const meta: Route.MetaFunction = () => {
-  return [{title: `Hydrogen | Cart`}];
+  return [{title: `Hydrogen | Cart`}]; // i18n-skip: meta title
 };
 
 export const headers: HeadersFunction = ({actionHeaders}) => actionHeaders;
@@ -110,11 +111,12 @@ export async function loader({context}: Route.LoaderArgs) {
 }
 
 export default function Cart() {
+  const {t} = useTranslation();
   const cart = useLoaderData<typeof loader>();
 
   return (
     <div className="cart">
-      <h1>Cart</h1>
+      <h1>{t('skeleton.cart.heading')}</h1>
       <CartMain layout="page" cart={cart} />
     </div>
   );

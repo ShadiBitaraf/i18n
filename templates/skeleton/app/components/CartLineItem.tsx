@@ -6,6 +6,7 @@ import {Link} from 'react-router';
 import {ProductPrice} from './ProductPrice';
 import {useAside} from './Aside';
 import type {CartApiQueryFragment} from 'storefrontapi.generated';
+import {useTranslation} from 'react-i18next';
 
 type CartLine = OptimisticCartLine<CartApiQueryFragment>;
 
@@ -74,6 +75,7 @@ export function CartLineItem({
  * hasn't yet responded that it was successfully added to the cart.
  */
 function CartLineQuantity({line}: {line: CartLine}) {
+  const {t} = useTranslation();
   if (!line || typeof line?.quantity === 'undefined') return null;
   const {id: lineId, quantity, isOptimistic} = line;
   const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
@@ -81,10 +83,10 @@ function CartLineQuantity({line}: {line: CartLine}) {
 
   return (
     <div className="cart-line-quantity">
-      <small>Quantity: {quantity} &nbsp;&nbsp;</small>
+      <small>{t('skeleton.cart.lineItem.quantity', {quantity})} &nbsp;&nbsp;</small>
       <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
         <button
-          aria-label="Decrease quantity"
+          aria-label={t('skeleton.cart.lineItem.decreaseQuantity')}
           disabled={quantity <= 1 || !!isOptimistic}
           name="decrease-quantity"
           value={prevQuantity}
@@ -95,7 +97,7 @@ function CartLineQuantity({line}: {line: CartLine}) {
       &nbsp;
       <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
         <button
-          aria-label="Increase quantity"
+          aria-label={t('skeleton.cart.lineItem.increaseQuantity')}
           name="increase-quantity"
           value={nextQuantity}
           disabled={!!isOptimistic}
@@ -121,6 +123,7 @@ function CartLineRemoveButton({
   lineIds: string[];
   disabled: boolean;
 }) {
+  const {t} = useTranslation();
   return (
     <CartForm
       fetcherKey={getUpdateKey(lineIds)}
@@ -129,7 +132,7 @@ function CartLineRemoveButton({
       inputs={{lineIds}}
     >
       <button disabled={disabled} type="submit">
-        Remove
+        {t('skeleton.cart.lineItem.remove')}
       </button>
     </CartForm>
   );

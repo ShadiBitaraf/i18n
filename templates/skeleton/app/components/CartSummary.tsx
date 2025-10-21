@@ -4,6 +4,7 @@ import {CartForm, Money, type OptimisticCart} from '@shopify/hydrogen';
 import {useEffect, useRef} from 'react';
 import {useFetcher} from 'react-router';
 import type {FetcherWithComponents} from 'react-router';
+import {useTranslation} from 'react-i18next';
 
 type CartSummaryProps = {
   cart: OptimisticCart<CartApiQueryFragment | null>;
@@ -11,14 +12,15 @@ type CartSummaryProps = {
 };
 
 export function CartSummary({cart, layout}: CartSummaryProps) {
+  const {t} = useTranslation();
   const className =
     layout === 'page' ? 'cart-summary-page' : 'cart-summary-aside';
 
   return (
     <div aria-labelledby="cart-summary" className={className}>
-      <h4>Totals</h4>
+      <h4>{t('skeleton.cart.summary.totals')}</h4>
       <dl className="cart-subtotal">
-        <dt>Subtotal</dt>
+        <dt>{t('skeleton.cart.summary.subtotal')}</dt>
         <dd>
           {cart?.cost?.subtotalAmount?.amount ? (
             <Money data={cart?.cost?.subtotalAmount} />
@@ -35,12 +37,13 @@ export function CartSummary({cart, layout}: CartSummaryProps) {
 }
 
 function CartCheckoutActions({checkoutUrl}: {checkoutUrl?: string}) {
+  const {t} = useTranslation();
   if (!checkoutUrl) return null;
 
   return (
     <div>
       <a href={checkoutUrl} target="_self">
-        <p>Continue to Checkout &rarr;</p>
+        <p>{t('skeleton.cart.summary.continueToCheckout')}</p>
       </a>
       <br />
     </div>
@@ -52,6 +55,7 @@ function CartDiscounts({
 }: {
   discountCodes?: CartApiQueryFragment['discountCodes'];
 }) {
+  const {t} = useTranslation();
   const codes: string[] =
     discountCodes
       ?.filter((discount) => discount.applicable)
@@ -62,12 +66,12 @@ function CartDiscounts({
       {/* Have existing discount, display it with a remove option */}
       <dl hidden={!codes.length}>
         <div>
-          <dt>Discount(s)</dt>
+          <dt>{t('skeleton.cart.discount.label')}</dt>
           <UpdateDiscountForm>
             <div className="cart-discount">
               <code>{codes?.join(', ')}</code>
               &nbsp;
-              <button>Remove</button>
+              <button>{t('skeleton.cart.discount.remove')}</button>
             </div>
           </UpdateDiscountForm>
         </div>
@@ -76,9 +80,9 @@ function CartDiscounts({
       {/* Show an input to apply a discount */}
       <UpdateDiscountForm discountCodes={codes}>
         <div>
-          <input type="text" name="discountCode" placeholder="Discount code" />
+          <input type="text" name="discountCode" placeholder={t('skeleton.cart.discount.placeholder')} />
           &nbsp;
-          <button type="submit">Apply</button>
+          <button type="submit">{t('skeleton.cart.discount.apply')}</button>
         </div>
       </UpdateDiscountForm>
     </div>
@@ -110,6 +114,7 @@ function CartGiftCard({
 }: {
   giftCardCodes: CartApiQueryFragment['appliedGiftCards'] | undefined;
 }) {
+  const {t} = useTranslation();
   const appliedGiftCardCodes = useRef<string[]>([]);
   const giftCardCodeInput = useRef<HTMLInputElement>(null);
   const giftCardAddFetcher = useFetcher({key: 'gift-card-add'});
@@ -133,7 +138,7 @@ function CartGiftCard({
       {/* Display applied gift cards with individual remove buttons */}
       {giftCardCodes && giftCardCodes.length > 0 && (
         <dl>
-          <dt>Applied Gift Card(s)</dt>
+          <dt>{t('skeleton.cart.giftCard.appliedLabel')}</dt>
           {giftCardCodes.map((giftCard) => (
             <RemoveGiftCardForm key={giftCard.id} giftCardId={giftCard.id}>
               <div className="cart-discount">
@@ -141,7 +146,7 @@ function CartGiftCard({
                 &nbsp;
                 <Money data={giftCard.amountUsed} />
                 &nbsp;
-                <button type="submit">Remove</button>
+                <button type="submit">{t('skeleton.cart.giftCard.remove')}</button>
               </div>
             </RemoveGiftCardForm>
           ))}
@@ -158,12 +163,12 @@ function CartGiftCard({
           <input
             type="text"
             name="giftCardCode"
-            placeholder="Gift card code"
+            placeholder={t('skeleton.cart.giftCard.placeholder')}
             ref={giftCardCodeInput}
           />
           &nbsp;
           <button type="submit" disabled={giftCardAddFetcher.state !== 'idle'}>
-            Apply
+            {t('skeleton.cart.giftCard.apply')}
           </button>
         </div>
       </UpdateGiftCardForm>
