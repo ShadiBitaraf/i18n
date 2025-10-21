@@ -1,6 +1,7 @@
 import {Suspense} from 'react';
 import {Await, NavLink} from 'react-router';
 import type {FooterQuery, HeaderQuery} from 'storefrontapi.generated';
+import {useTranslation} from 'react-i18next';
 
 interface FooterProps {
   footer: Promise<FooterQuery | null>;
@@ -73,6 +74,7 @@ function FooterMenu({
   );
 }
 
+// i18n-skip: fallback data - in production these titles come from Shopify API which handles i18n
 const FALLBACK_FOOTER_MENU = {
   id: 'gid://shopify/Menu/199655620664',
   items: [

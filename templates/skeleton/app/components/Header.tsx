@@ -7,6 +7,7 @@ import {
 } from '@shopify/hydrogen';
 import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
 import {useAside} from '~/components/Aside';
+import {useTranslation} from 'react-i18next';
 
 interface HeaderProps {
   header: HeaderQuery;
@@ -51,6 +52,7 @@ export function HeaderMenu({
   viewport: Viewport;
   publicStoreDomain: HeaderProps['publicStoreDomain'];
 }) {
+  const {t} = useTranslation();
   const className = `header-menu-${viewport}`;
   const {close} = useAside();
 
@@ -64,7 +66,7 @@ export function HeaderMenu({
           style={activeLinkStyle}
           to="/"
         >
-          Home
+          {t('skeleton.header.nav.home')}
         </NavLink>
       )}
       {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
@@ -99,13 +101,14 @@ function HeaderCtas({
   isLoggedIn,
   cart,
 }: Pick<HeaderProps, 'isLoggedIn' | 'cart'>) {
+  const {t} = useTranslation();
   return (
     <nav className="header-ctas" role="navigation">
       <HeaderMenuMobileToggle />
       <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
-        <Suspense fallback="Sign in">
-          <Await resolve={isLoggedIn} errorElement="Sign in">
-            {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
+        <Suspense fallback={t('skeleton.header.account.signIn')}>
+          <Await resolve={isLoggedIn} errorElement={t('skeleton.header.account.signIn')}>
+            {(isLoggedIn) => (isLoggedIn ? t('skeleton.header.account.account') : t('skeleton.header.account.signIn'))}
           </Await>
         </Suspense>
       </NavLink>
@@ -128,15 +131,17 @@ function HeaderMenuMobileToggle() {
 }
 
 function SearchToggle() {
+  const {t} = useTranslation();
   const {open} = useAside();
   return (
     <button className="reset" onClick={() => open('search')}>
-      Search
+      {t('skeleton.header.search.button')}
     </button>
   );
 }
 
 function CartBadge({count}: {count: number | null}) {
+  const {t} = useTranslation();
   const {open} = useAside();
   const {publish, shop, cart, prevCart} = useAnalytics();
 
@@ -154,7 +159,7 @@ function CartBadge({count}: {count: number | null}) {
         } as CartViewPayload);
       }}
     >
-      Cart {count === null ? <span>&nbsp;</span> : count}
+      {t('skeleton.header.cart.badge', {count: count === null ? 0 : count})}
     </a>
   );
 }
@@ -175,6 +180,7 @@ function CartBanner() {
   return <CartBadge count={cart?.totalQuantity ?? 0} />;
 }
 
+// i18n-skip: fallback data - in production these titles come from Shopify API which handles i18n
 const FALLBACK_HEADER_MENU = {
   id: 'gid://shopify/Menu/199655587896',
   items: [
