@@ -1,6 +1,7 @@
 import {type LoaderFunctionArgs} from '@shopify/remix-oxygen';
 import {Link} from 'react-router';
 import {CartForm, useOptimisticCart} from '@shopify/hydrogen';
+import {useTranslation} from 'react-i18next';
 import type {Cart} from '@shopify/hydrogen/storefront-api-types';
 
 // Root loader returns the cart data
@@ -15,7 +16,9 @@ export function Cart({cart: originalCart}: {cart: Cart}) {
   // `useOptimisticCart` adds optimistic line items to the cart.
   // These line items are displayed in the cart until the server responds.
   const cart = useOptimisticCart(originalCart);
-  if (!cart?.lines?.nodes?.length) return <p>Nothing in cart</p>;
+  const {t} = useTranslation();
+  if (!cart?.lines?.nodes?.length)
+    return <p>{t('hydrogen.optimisticUi.nothingInCart')}</p>;
 
   return cart.lines.nodes.map((line) => (
     <div key={line.id}>
@@ -30,7 +33,7 @@ export function Cart({cart: originalCart}: {cart: Cart}) {
         {/* Each line item has an `isOptimistic` property. Optimistic line items
         should have actions disabled */}
         <button type="submit" disabled={!!line.isOptimistic}>
-          Remove
+          {t('hydrogen.optimisticUi.removeButton')}
         </button>
       </CartForm>
     </div>

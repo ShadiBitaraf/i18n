@@ -1,10 +1,12 @@
 import {useFetcher} from 'react-router';
 import {data} from 'react-router';
 import {CartForm} from '@shopify/hydrogen';
+import {useTranslation} from 'react-i18next';
 import invariant from 'tiny-invariant';
 
 export function ThisIsGift({metafield}) {
   const fetcher = useFetcher();
+  const {t} = useTranslation();
 
   const buildFormInput = (event) => ({
     action: CartForm.ACTIONS.MetafieldsSet,
@@ -34,7 +36,7 @@ export function ThisIsGift({metafield}) {
           );
         }}
       />
-      <label htmlFor="isGift">This is a gift</label>
+      <label htmlFor="isGift">{t('hydrogen.cartForm.isGiftLabel')}</label>
     </div>
   );
 }

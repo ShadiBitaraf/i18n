@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import type {LinksFunction} from 'react-router';
 import {Script} from '@shopify/hydrogen';
+import {useTranslation} from 'react-i18next';
 
 import {RequestWaterfall} from '../components/RequestWaterfall.jsx';
 import {type ServerEvents} from '../lib/useDebugNetworkServer.jsx';
@@ -101,6 +102,7 @@ function NotificationBanner({
   hideNotification: boolean | undefined;
   setHideNotification: (hideNotification: boolean) => void;
 }) {
+  const {t} = useTranslation();
   if (hideNotification) {
     return null;
   }
@@ -117,35 +119,45 @@ function NotificationBanner({
           <IconClose />
         </button>
       </div>
-      <p>
-        Note: You may need to turn on 'Disable Cache' for your navigating
-        window.
-      </p>
+      <p>{t('hydrogen.virtualRoutes.profiler.notificationNote')}</p>
     </div>
   );
 }
 
 function EmptyState() {
+  const {t} = useTranslation();
   return (
     <div id="empty-view">
-      <p className="text-large bold">Navigate to your app</p>
+      <p className="text-large bold">
+        {t('hydrogen.virtualRoutes.profiler.emptyStateTitle')}
+      </p>
       <p className="text-normal">
-        Open your localhost to initiate subrequest profiler
+        {t('hydrogen.virtualRoutes.profiler.emptyStateBody')}
       </p>
       <Link to="/" target="_blank" className="link-margin-top">
-        <button className="primary">Open app</button>
+        <button className="primary">
+          {t('hydrogen.virtualRoutes.profiler.openAppButton')}
+        </button>
       </Link>
     </div>
   );
 }
 
 function DebugHeader() {
+  const {t} = useTranslation();
+
   return (
     <header className="justify-between text-large">
       <div className="flex-row">
-        <img className="logo" src={faviconDark} alt="Hydrogen logo" />
-        <h1>Subrequest Profiler</h1>
-        <span className="pill">Development</span>
+        <img
+          className="logo"
+          src={faviconDark}
+          alt={t('hydrogen.virtualRoutes.profiler.logoAlt')}
+        />
+        <h1>{t('hydrogen.virtualRoutes.profiler.heading')}</h1>
+        <span className="pill">
+          {t('hydrogen.virtualRoutes.profiler.pillLabel')}
+        </span>
       </div>
     </header>
   );
@@ -162,12 +174,13 @@ function OptionsAndLegend({
   setHidePutRequests: (checked: boolean) => void;
   setPreserveLog: (checked: boolean) => void;
 }) {
+  const {t} = useTranslation();
   return (
     <div id="options-and-legend" className="justify-between pad">
       <div className="flex-row text-large">
         <button id="buttonClear" onClick={() => clearCallback()}>
           <IconDiscard />
-          <span>Clear</span>
+          <span>{t('hydrogen.virtualRoutes.profiler.clearButton')}</span>
         </button>
         <div className="form-control">
           <input
@@ -177,7 +190,7 @@ function OptionsAndLegend({
             onChange={(event) => setHidePutRequests(event.target.checked)}
           />
           <label htmlFor="hidePutRequests">
-            Hide cache update requests (PUT)
+            {t('hydrogen.virtualRoutes.profiler.hidePutLabel')}
           </label>
         </div>
         <div className="form-control">
@@ -187,12 +200,16 @@ function OptionsAndLegend({
             checked={serverEvents.preserveLog}
             onChange={(event) => setPreserveLog(event.target.checked)}
           />
-          <label htmlFor="preserveLog">Preserve Log</label>
+          <label htmlFor="preserveLog">
+            {t('hydrogen.virtualRoutes.profiler.preserveLogLabel')}
+          </label>
         </div>
       </div>
       <div className="flex-row text-normal gap-small">
         <div className="legend flex-row">
-          <p className="bold-1">Main Request</p>
+          <p className="bold-1">
+            {t('hydrogen.virtualRoutes.profiler.mainRequestLegend')}
+          </p>
           <p className="flex-row gap-small">
             <span
               className="swatch"
@@ -200,7 +217,7 @@ function OptionsAndLegend({
                 backgroundColor: WATERFALL_CONFIG.colors.server,
               }}
             ></span>
-            Time on server
+            {t('hydrogen.virtualRoutes.profiler.timeOnServer')}
           </p>
           <p className="flex-row gap-small">
             <span
@@ -209,7 +226,7 @@ function OptionsAndLegend({
                 backgroundColor: WATERFALL_CONFIG.colors.streaming,
               }}
             ></span>
-            Time to stream to client
+            {t('hydrogen.virtualRoutes.profiler.timeToStream')}
           </p>
         </div>
         <div className="legend flex-row">
@@ -220,7 +237,7 @@ function OptionsAndLegend({
                 backgroundColor: WATERFALL_CONFIG.colors.subRequest,
               }}
             ></span>
-            Sub request
+            {t('hydrogen.virtualRoutes.profiler.subRequestLegend')}
           </p>
         </div>
       </div>

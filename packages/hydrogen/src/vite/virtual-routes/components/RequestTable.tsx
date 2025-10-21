@@ -1,4 +1,5 @@
 import {useEffect} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   buildRequestData,
   type RequestTimings,
@@ -58,6 +59,8 @@ export function RequestTable({
     },
   });
 
+  const {t} = useTranslation();
+
   useEffect(() => {
     // Remove selection of active event if it's not in the list anymore
     if (!serverEvents.preserveLog && activeEventId) {
@@ -73,9 +76,15 @@ export function RequestTable({
     <div id="request-table">
       <div>
         <div id="request-table__header" className="grid-row">
-          <div className="grid-cell">Name</div>
-          <div className="grid-cell">Cache</div>
-          <div className="grid-cell">Time</div>
+          <div className="grid-cell">
+            {t('hydrogen.virtualRoutes.profiler.tableHeaderName')}
+          </div>
+          <div className="grid-cell">
+            {t('hydrogen.virtualRoutes.profiler.tableHeaderCache')}
+          </div>
+          <div className="grid-cell">
+            {t('hydrogen.virtualRoutes.profiler.tableHeaderTime')}
+          </div>
         </div>
         <div id="request-table__content">
           {items.map((row) => (
@@ -93,14 +102,22 @@ export function RequestTable({
             >
               <div className="grid-cell">{row.url}</div>
               <div className="grid-cell">{row.cacheStatus}</div>
-              <div className="grid-cell">{row.duration}ms</div>
+              <div className="grid-cell">
+                {t('hydrogen.virtualRoutes.profiler.durationMs', {
+                  duration: row.duration,
+                })}
+              </div>
             </div>
           ))}
         </div>
         <div id="request-table__footer">
-          {totalMainRequests} request{totalMainRequests > 1 ? 's' : ''} |{' '}
-          {totalSubRequest} sub request
-          {totalSubRequest > 1 ? 's' : ''}
+          {t('hydrogen.virtualRoutes.profiler.mainRequestCount', {
+            count: totalMainRequests,
+          })}{' '}
+          |{' '}
+          {t('hydrogen.virtualRoutes.profiler.subRequestCount', {
+            count: totalSubRequest,
+          })}
         </div>
       </div>
     </div>

@@ -1,11 +1,17 @@
-import {CartForm, OptimisticInput, useOptimisticData} from '@shopify/hydrogen';
+import {
+  CartForm,
+  OptimisticInput,
+  useOptimisticData,
+} from '@shopify/hydrogen';
 import {CartLine} from '@shopify/hydrogen-react/storefront-api-types';
+import {useTranslation} from 'react-i18next';
 
 type OptimisticData = {
   action: string;
 };
 
 export default function Cart({line}: {line: CartLine}) {
+  const {t} = useTranslation();
   const optimisticId = line.id;
   const optimisticData = useOptimisticData<OptimisticData>(optimisticId);
 
@@ -24,7 +30,9 @@ export default function Cart({line}: {line: CartLine}) {
           lineIds: [line.id],
         }}
       >
-        <button type="submit">Remove</button>
+        <button type="submit">
+          {t('hydrogen.optimisticUi.removeButton')}
+        </button>
         <OptimisticInput id={optimisticId} data={{action: 'remove'}} />
       </CartForm>
     </div>

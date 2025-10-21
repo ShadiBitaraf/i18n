@@ -1,6 +1,8 @@
 import {SVGProps} from 'react';
+import {useTranslation} from 'react-i18next';
 
 export function IconClose(props: SVGProps<SVGSVGElement>) {
+  const {t} = useTranslation();
   return (
     <svg
       width="20px"
@@ -8,7 +10,7 @@ export function IconClose(props: SVGProps<SVGSVGElement>) {
       {...props}
       stroke={props.stroke || 'currentColor'}
     >
-      <title>Close</title>
+      <title>{t('hydrogen.virtualRoutes.profiler.iconCloseTitle')}</title>
       <line
         x1="4.44194"
         y1="4.30806"
