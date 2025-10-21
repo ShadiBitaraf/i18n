@@ -1,8 +1,10 @@
 import {data} from 'react-router';
 import {CartForm} from '@shopify/hydrogen';
+import {useTranslation} from 'react-i18next';
 import invariant from 'tiny-invariant';
 
 export default function Cart() {
+  const {t} = useTranslation();
   return (
     <CartForm
       action={CartForm.ACTIONS.LinesUpdate}
@@ -16,7 +18,7 @@ export default function Cart() {
         other: 'data',
       }}
     >
-      <button>Quantity up</button>
+      <button>{t('hydrogen.cartForm.quantityUpButton')}</button>
     </CartForm>
   );
 }

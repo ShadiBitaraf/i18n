@@ -1,5 +1,6 @@
 import {CartProvider, useCart} from '@shopify/hydrogen-react';
 import type {CartLineInput} from '@shopify/hydrogen-react/storefront-api-types';
+import {useTranslation} from 'react-i18next';
 
 export function App() {
   <CartProvider
@@ -16,13 +17,16 @@ export function App() {
 
 function CartComponent() {
   const {linesAdd, status} = useCart();
+  const {t} = useTranslation();
 
   const merchandise: CartLineInput = {merchandiseId: '{id-here}'};
 
   return (
     <div>
-      Cart Status: {status}
-      <button onClick={() => linesAdd([merchandise])}>Add Line</button>
+      {t('hydrogenReact.cartProvider.statusLabel', {status})}
+      <button onClick={() => linesAdd([merchandise])}>
+        {t('hydrogenReact.cartProvider.addLineButton')}
+      </button>
     </div>
   );
 }

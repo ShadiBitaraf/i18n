@@ -2,6 +2,7 @@ import {type LoaderFunctionArgs} from '@shopify/remix-oxygen';
 import {Pagination, getPaginationVariables} from '@shopify/hydrogen';
 import {useLoaderData, Link} from 'react-router';
 import {ProductConnection} from '@shopify/hydrogen/storefront-api-types';
+import {useTranslation} from 'react-i18next';
 
 export async function loader({
   request,
@@ -21,12 +22,15 @@ export async function loader({
 
 export default function List() {
   const {products} = useLoaderData<typeof loader>();
+  const {t} = useTranslation();
 
   return (
     <Pagination connection={products}>
       {({nodes, NextLink, PreviousLink}) => (
         <>
-          <PreviousLink>Previous</PreviousLink>
+          <PreviousLink>
+            {t('hydrogen.pagination.single.previous')}
+          </PreviousLink>
           <div>
             {nodes.map((product) => (
               <Link key={product.id} to={`/products/${product.handle}`}>
@@ -34,7 +38,7 @@ export default function List() {
               </Link>
             ))}
           </div>
-          <NextLink>Next</NextLink>
+          <NextLink>{t('hydrogen.pagination.single.next')}</NextLink>
         </>
       )}
     </Pagination>

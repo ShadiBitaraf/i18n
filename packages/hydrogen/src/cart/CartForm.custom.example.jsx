@@ -1,8 +1,10 @@
 import {data} from 'react-router';
 import {CartForm} from '@shopify/hydrogen';
+import {useTranslation} from 'react-i18next';
 import invariant from 'tiny-invariant';
 
 export default function Cart() {
+  const {t} = useTranslation();
   return (
     <CartForm
       action="CustomEditInPlace"
@@ -16,7 +18,7 @@ export default function Cart() {
         removeLines: ['gid://shopify/CartLine/123456789'],
       }}
     >
-      <button>Green color swatch</button>
+      <button>{t('hydrogen.cartForm.greenColorSwatchButton')}</button>
     </CartForm>
   );
 }

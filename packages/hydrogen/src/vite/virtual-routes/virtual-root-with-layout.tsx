@@ -11,6 +11,7 @@ import {
   isRouteErrorResponse,
   useRouteError,
 } from 'react-router';
+import {useTranslation} from 'react-i18next';
 import favicon from './assets/favicon.svg';
 import {Layout as VirtualLayout} from './components/Layout.jsx';
 import {useNonce} from '@shopify/hydrogen';
@@ -22,6 +23,7 @@ export const links: LinksFunction = () => {
 };
 
 export default function App() {
+  const {t} = useTranslation();
   const nonce = useNonce();
   return (
     <html lang="en">
@@ -29,10 +31,10 @@ export default function App() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <link rel="stylesheet" href={styles}></link>
-        <title>Hydrogen</title>
+        <title>{t('hydrogen.virtualRoutes.virtualRoot.title')}</title>
         <meta
           name="description"
-          content="A custom storefront powered by Hydrogen"
+          content={t('hydrogen.virtualRoutes.virtualRoot.description')}
         />
         <Meta />
         <Links />
@@ -49,8 +51,9 @@ export default function App() {
 }
 
 export function ErrorBoundary() {
+  const {t} = useTranslation();
   const error = useRouteError();
-  let errorMessage = 'Unknown error';
+  let errorMessage = t('hydrogen.virtualRoutes.virtualRoot.unknownError');
   let errorStatus = 500;
 
   if (isRouteErrorResponse(error)) {
@@ -63,7 +66,7 @@ export function ErrorBoundary() {
   return (
     <VirtualLayout>
       <div className="route-error">
-        <h1>Please report this error</h1>
+        <h1>{t('hydrogen.virtualRoutes.virtualRoot.errorHeading')}</h1>
         <h2>{errorStatus}</h2>
         {errorMessage && (
           <fieldset>

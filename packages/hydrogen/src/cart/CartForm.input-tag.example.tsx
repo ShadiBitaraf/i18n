@@ -4,13 +4,15 @@ import {
   type HydrogenCart,
   CartForm,
 } from '@shopify/hydrogen';
+import {useTranslation} from 'react-i18next';
 import invariant from 'tiny-invariant';
 
 export default function Note() {
+  const {t} = useTranslation();
   return (
     <CartForm action={CartForm.ACTIONS.NoteUpdate}>
       <input type="text" name="note" />
-      <button>Update Note</button>
+      <button>{t('hydrogen.cartForm.updateNoteButton')}</button>
     </CartForm>
   );
 }

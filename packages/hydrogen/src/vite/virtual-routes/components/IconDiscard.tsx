@@ -1,6 +1,8 @@
 import {SVGProps} from 'react';
+import {useTranslation} from 'react-i18next';
 
 export function IconDiscard(props: SVGProps<SVGSVGElement>) {
+  const {t} = useTranslation();
   const fillColor = props.fill || '#333333';
   return (
     <svg
@@ -11,7 +13,7 @@ export function IconDiscard(props: SVGProps<SVGSVGElement>) {
       fill="none"
       {...props}
     >
-      <title>Clear</title>
+      <title>{t('hydrogen.virtualRoutes.profiler.iconDiscardTitle')}</title>
       <path
         d="M11.5 8.25C11.9142 8.25 12.25 8.58579 12.25 9V13.25C12.25 13.6642 11.9142 14 11.5 14C11.0858 14 10.75 13.6642 10.75 13.25V9C10.75 8.58579 11.0858 8.25 11.5 8.25Z"
         fill={fillColor}

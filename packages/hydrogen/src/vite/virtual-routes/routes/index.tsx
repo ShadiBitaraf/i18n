@@ -1,5 +1,6 @@
 import {useLoaderData} from 'react-router';
 import type {LinksFunction} from 'react-router';
+import {Trans, useTranslation} from 'react-i18next';
 import type {Shop} from '@shopify/hydrogen-react/storefront-api-types';
 import {HydrogenLogoBaseBW} from '../components/HydrogenLogoBaseBW.jsx';
 import {HydrogenLogoBaseColor} from '../components/HydrogenLogoBaseColor.jsx';
@@ -58,61 +59,60 @@ export default function Index() {
     isMockShop,
     layout: {shop},
   } = useLoaderData<typeof loader>();
+  const {t} = useTranslation();
 
   let {name: shopName, id: shopId} = shop;
 
   const configDone = shopId !== HYDROGEN_SHOP_ID && !isMockShop;
-  if (isMockShop || !shopName) shopName = 'Hydrogen';
+  if (isMockShop || !shopName)
+    shopName = t('hydrogen.virtualRoutes.index.defaultShopName');
 
   return (
     <>
       <Layout shopName={shopName}>
         {configDone ? <HydrogenLogoBaseColor /> : <HydrogenLogoBaseBW />}
-        <h1>Hello, {shopName}</h1>
-        <p>Welcome to your new custom storefront</p>
+        <h1>{t('hydrogen.virtualRoutes.index.greeting', {shopName})}</h1>
+        <p>{t('hydrogen.virtualRoutes.index.welcomeMessage')}</p>
 
         <section className="Banner">
           <div>
             <IconBanner />
             <h2>
               {configDone
-                ? 'Create your first route'
-                : 'Configure storefront token'}
+                ? t('hydrogen.virtualRoutes.index.bannerConfiguredTitle')
+                : t('hydrogen.virtualRoutes.index.bannerConfigureTokenTitle')}
             </h2>
           </div>
           {configDone ? (
             <p>
-              You&rsquo;re seeing this because you don&rsquo;t have a home route
-              in your project yet. <br />
-              Run <code>npx shopify hydrogen setup</code> to scaffold standard
-              Shopify routes. Learn more about
-              {` `}
-              <CreateRoutesLink />
+              <Trans
+                t={t}
+                i18nKey="hydrogen.virtualRoutes.index.bannerConfiguredBody"
+                components={{
+                  br: <br />,
+                  code: <code />,
+                  routesLink: <CreateRoutesLink />,
+                }}
+              />
             </p>
           ) : (
             <p>
-              You&rsquo;re seeing this because you have not yet configured your
-              storefront token. <br />
-              <br /> To link your store,{` `}
-              run{' '}
-              <code>
-                npx shopify hydrogen link && npx shopify hydrogen env pull
-              </code>
-              . Then, run <code>npx shopify hydrogen setup</code> to scaffold
-              standard Shopify routes.
-              <br />
-              Learn more about
-              {` `}
-              <a
-                target="_blank"
-                rel="norefferer noopener"
-                href="https://shopify.dev/docs/custom-storefronts/hydrogen/environment-variables"
-              >
-                editing environment variables
-              </a>
-              {` `}
-              and{` `}
-              <CreateRoutesLink />.
+              <Trans
+                t={t}
+                i18nKey="hydrogen.virtualRoutes.index.bannerConfigureTokenBody"
+                components={{
+                  br: <br />,
+                  code: <code />,
+                  envLink: (
+                    <a
+                      target="_blank"
+                      rel="norefferer noopener"
+                      href="https://shopify.dev/docs/custom-storefronts/hydrogen/environment-variables"
+                    />
+                  ),
+                  routesLink: <CreateRoutesLink />,
+                }}
+              />
             </p>
           )}
         </section>
@@ -123,40 +123,54 @@ export default function Index() {
 }
 
 function CreateRoutesLink() {
+  const {t} = useTranslation();
+
   return (
     <a
       target="_blank"
       rel="norefferer noopener"
       href="https://shopify.dev/docs/custom-storefronts/hydrogen/building/begin-development#step-4-create-a-route"
     >
-      creating routes
+      {t('hydrogen.virtualRoutes.index.createRoutesLink')}
     </a>
   );
 }
 
 function ErrorPage() {
+  const {t} = useTranslation();
+
   return (
     <>
-      <Layout shopName="Hydrogen">
+      <Layout
+        shopName={t('hydrogen.virtualRoutes.index.defaultShopName')}
+      >
         <HydrogenLogoBaseBW />
-        <h1>Hello, Hydrogen</h1>
-        <p>Welcome to your new custom storefront</p>
+        <h1>
+          {t('hydrogen.virtualRoutes.index.greeting', {
+            shopName: t('hydrogen.virtualRoutes.index.defaultShopName'),
+          })}
+        </h1>
+        <p>{t('hydrogen.virtualRoutes.index.welcomeMessage')}</p>
         <section className="Banner ErrorBanner">
           <div>
             <IconError />
-            <h2>There&rsquo;s a problem with your storefront</h2>
+            <h2>{t('hydrogen.virtualRoutes.index.errorTitle')}</h2>
           </div>
           <p>
-            Check your domain and API token in your <code>.env</code> file.
-            Learn more about{` `}
-            <a
-              target="_blank"
-              rel="norefferer noopener"
-              href="https://shopify.dev/docs/custom-storefronts/hydrogen/environment-variables"
-            >
-              editing environment variables
-            </a>
-            .
+            <Trans
+              t={t}
+              i18nKey="hydrogen.virtualRoutes.index.errorBody"
+              components={{
+                code: <code />,
+                envLink: (
+                  <a
+                    target="_blank"
+                    rel="norefferer noopener"
+                    href="https://shopify.dev/docs/custom-storefronts/hydrogen/environment-variables"
+                  />
+                ),
+              }}
+            />
           </p>
         </section>
         <ResourcesLinks />
@@ -166,10 +180,12 @@ function ErrorPage() {
 }
 
 function ResourcesLinks() {
+  const {t} = useTranslation();
+
   return (
     <>
       <section className="Links">
-        <h2>Start building</h2>
+        <h2>{t('hydrogen.virtualRoutes.index.startBuildingHeading')}</h2>
         <ul>
           <li>
             <a
@@ -177,7 +193,7 @@ function ResourcesLinks() {
               rel="norefferer noopener"
               href="https://shopify.dev/custom-storefronts/hydrogen/building/collection-page"
             >
-              Collection template
+              {t('hydrogen.virtualRoutes.index.collectionTemplateLink')}
             </a>
           </li>
           <li>
@@ -186,7 +202,7 @@ function ResourcesLinks() {
               rel="norefferer noopener"
               href="https://shopify.dev/custom-storefronts/hydrogen/building/product-details-page"
             >
-              Product template
+              {t('hydrogen.virtualRoutes.index.productTemplateLink')}
             </a>
           </li>
           <li>
@@ -195,11 +211,11 @@ function ResourcesLinks() {
               rel="norefferer noopener"
               href="https://shopify.dev/custom-storefronts/hydrogen/building/cart"
             >
-              Cart
+              {t('hydrogen.virtualRoutes.index.cartLink')}
             </a>
           </li>
         </ul>
-        <h2>Resources</h2>
+        <h2>{t('hydrogen.virtualRoutes.index.resourcesHeading')}</h2>
         <ul>
           <li>
             <a
@@ -207,7 +223,7 @@ function ResourcesLinks() {
               rel="norefferer noopener"
               href="https://shopify.dev/custom-storefronts/hydrogen"
             >
-              Hydrogen docs
+              {t('hydrogen.virtualRoutes.index.docsLink')}
             </a>
           </li>
           <li>
@@ -216,7 +232,7 @@ function ResourcesLinks() {
               rel="norefferer noopener"
               href="https://shopify.dev/custom-storefronts/hydrogen/project-structure"
             >
-              Remix and project structure
+              {t('hydrogen.virtualRoutes.index.projectStructureLink')}
             </a>
           </li>
           <li>
@@ -225,7 +241,7 @@ function ResourcesLinks() {
               rel="norefferer noopener"
               href="https://shopify.dev/custom-storefronts/hydrogen/data-fetching/fetch-data"
             >
-              Data queries and fetching
+              {t('hydrogen.virtualRoutes.index.dataFetchingLink')}
             </a>
           </li>
         </ul>
@@ -241,11 +257,17 @@ function Layout({
   shopName: string;
   children: React.ReactNode;
 }) {
+  const {t} = useTranslation();
+
   return (
     <>
       <header>
         <h1>{shopName?.toUpperCase()}</h1>
-        <p>&nbsp;Dev Mode&nbsp;</p>
+        <p>
+          {'\u00A0'}
+          {t('hydrogen.virtualRoutes.index.devMode')}
+          {'\u00A0'}
+        </p>
         <nav>
           <a
             target="_blank"
@@ -271,7 +293,7 @@ function Layout({
             target="_blank"
             rel="noreferrer noopener"
           >
-            Powered by Shopify
+            {t('hydrogen.virtualRoutes.index.poweredByShopify')}
           </a>
         </div>
       </footer>

@@ -2,6 +2,7 @@ import {type LoaderFunctionArgs} from '@shopify/remix-oxygen';
 import {useLoaderData, Link} from 'react-router';
 import {getPaginationVariables, Pagination} from '@shopify/hydrogen';
 import {type Collection} from '@shopify/hydrogen-react/storefront-api-types';
+import {useTranslation} from 'react-i18next';
 
 export async function loader({
   request,
@@ -30,9 +31,10 @@ export async function loader({
 
 export default function Collection() {
   const {womensProducts, mensProducts} = useLoaderData<typeof loader>();
+  const {t} = useTranslation();
   return (
     <div className="collection">
-      <h1>Womens</h1>
+      <h1>{t('hydrogen.pagination.multiple.womensHeading')}</h1>
 
       <Pagination
         connection={womensProducts?.collection?.products}
@@ -43,7 +45,13 @@ export default function Collection() {
           return (
             <div>
               <PreviousLink>
-                {isLoading ? 'Loading...' : <span>↑ Load previous</span>}
+                {isLoading ? (
+                  t('hydrogen.pagination.multiple.loading')
+                ) : (
+                  <span>
+                    {t('hydrogen.pagination.multiple.loadPrevious')}
+                  </span>
+                )}
               </PreviousLink>
               <div>
                 {nodes.map((product) => (
@@ -55,14 +63,18 @@ export default function Collection() {
                 ))}
               </div>
               <NextLink>
-                {isLoading ? 'Loading...' : <span>Load more ↓</span>}
+                {isLoading ? (
+                  t('hydrogen.pagination.multiple.loading')
+                ) : (
+                  <span>{t('hydrogen.pagination.multiple.loadMore')}</span>
+                )}
               </NextLink>
             </div>
           );
         }}
       </Pagination>
 
-      <h1>Mens</h1>
+      <h1>{t('hydrogen.pagination.multiple.mensHeading')}</h1>
       <Pagination
         connection={mensProducts?.collection?.products}
         // Specify a unique namespace for the pagination links
@@ -72,7 +84,13 @@ export default function Collection() {
           return (
             <div>
               <PreviousLink>
-                {isLoading ? 'Loading...' : <span>↑ Load previous</span>}
+                {isLoading ? (
+                  t('hydrogen.pagination.multiple.loading')
+                ) : (
+                  <span>
+                    {t('hydrogen.pagination.multiple.loadPrevious')}
+                  </span>
+                )}
               </PreviousLink>
               <div>
                 {nodes.map((product) => (
@@ -84,7 +102,11 @@ export default function Collection() {
                 ))}
               </div>
               <NextLink>
-                {isLoading ? 'Loading...' : <span>Load more ↓</span>}
+                {isLoading ? (
+                  t('hydrogen.pagination.multiple.loading')
+                ) : (
+                  <span>{t('hydrogen.pagination.multiple.loadMore')}</span>
+                )}
               </NextLink>
             </div>
           );
