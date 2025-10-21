@@ -6,6 +6,7 @@ import type {Route} from './+types/blogs._index';
 import {getPaginationVariables} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import type {BlogsQuery} from 'storefrontapi.generated';
+import {useTranslation} from 'react-i18next';
 
 type BlogNode = BlogsQuery['blogs']['nodes'][0];
 
@@ -54,11 +55,12 @@ function loadDeferredData({context}: Route.LoaderArgs) {
 }
 
 export default function Blogs() {
+  const {t} = useTranslation();
   const {blogs} = useLoaderData<typeof loader>();
 
   return (
     <div className="blogs">
-      <h1>Blogs</h1>
+      <h1>{t('skeleton.blogs.heading')}</h1>
       <div className="blogs-grid">
         <PaginatedResourceSection<BlogNode> connection={blogs}>
           {({node: blog}) => (

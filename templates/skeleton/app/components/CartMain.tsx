@@ -4,6 +4,7 @@ import type {CartApiQueryFragment} from 'storefrontapi.generated';
 import {useAside} from '~/components/Aside';
 import {CartLineItem} from '~/components/CartLineItem';
 import {CartSummary} from './CartSummary';
+import {useTranslation} from 'react-i18next';
 
 export type CartLayout = 'page' | 'aside';
 
@@ -51,17 +52,17 @@ function CartEmpty({
   hidden: boolean;
   layout?: CartMainProps['layout'];
 }) {
+  const {t} = useTranslation();
   const {close} = useAside();
   return (
     <div hidden={hidden}>
       <br />
       <p>
-        Looks like you haven&rsquo;t added anything yet, let&rsquo;s get you
-        started!
+        {t('skeleton.cart.empty.message')}
       </p>
       <br />
       <Link to="/collections" onClick={close} prefetch="viewport">
-        Continue shopping →
+        {t('skeleton.cart.empty.continueShopping')}
       </Link>
     </div>
   );

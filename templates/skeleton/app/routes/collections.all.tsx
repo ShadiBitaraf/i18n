@@ -6,6 +6,7 @@ import {getPaginationVariables, Image, Money} from '@shopify/hydrogen';
 import {PaginatedResourceSection} from '~/components/PaginatedResourceSection';
 import {ProductItem} from '~/components/ProductItem';
 import type {CollectionItemFragment} from 'storefrontapi.generated';
+import {useTranslation} from 'react-i18next';
 
 export const meta: Route.MetaFunction = () => {
   return [{title: `Hydrogen | Products`}];
@@ -50,11 +51,12 @@ function loadDeferredData({context}: Route.LoaderArgs) {
 }
 
 export default function Collection() {
+  const {t} = useTranslation();
   const {products} = useLoaderData<typeof loader>();
 
   return (
     <div className="collection">
-      <h1>Products</h1>
+      <h1>{t('skeleton.collections.allProducts')}</h1>
       <PaginatedResourceSection<CollectionItemFragment>
         connection={products}
         resourcesClassName="products-grid"
