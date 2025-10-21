@@ -1,6 +1,7 @@
 import {Link} from 'react-router';
 import {Image, Money, Pagination} from '@shopify/hydrogen';
 import {urlWithTrackingParams, type RegularSearchReturn} from '~/lib/search';
+import {useTranslation} from 'react-i18next';
 
 type SearchItems = RegularSearchReturn['result']['items'];
 type PartialSearchResult<ItemType extends keyof SearchItems> = Pick<
@@ -34,13 +35,14 @@ function SearchResultsArticles({
   term,
   articles,
 }: PartialSearchResult<'articles'>) {
+  const {t} = useTranslation();
   if (!articles?.nodes.length) {
     return null;
   }
 
   return (
     <div className="search-result">
-      <h2>Articles</h2>
+      <h2>{t('skeleton.search.results.articlesHeading')}</h2>
       <div>
         {articles?.nodes?.map((article) => {
           const articleUrl = urlWithTrackingParams({
@@ -64,13 +66,14 @@ function SearchResultsArticles({
 }
 
 function SearchResultsPages({term, pages}: PartialSearchResult<'pages'>) {
+  const {t} = useTranslation();
   if (!pages?.nodes.length) {
     return null;
   }
 
   return (
     <div className="search-result">
-      <h2>Pages</h2>
+      <h2>{t('skeleton.search.results.pagesHeading')}</h2>
       <div>
         {pages?.nodes?.map((page) => {
           const pageUrl = urlWithTrackingParams({
@@ -97,13 +100,14 @@ function SearchResultsProducts({
   term,
   products,
 }: PartialSearchResult<'products'>) {
+  const {t} = useTranslation();
   if (!products?.nodes.length) {
     return null;
   }
 
   return (
     <div className="search-result">
-      <h2>Products</h2>
+      <h2>{t('skeleton.search.results.productsHeading')}</h2>
       <Pagination connection={products}>
         {({nodes, isLoading, NextLink, PreviousLink}) => {
           const ItemsMarkup = nodes.map((product) => {
@@ -135,7 +139,7 @@ function SearchResultsProducts({
             <div>
               <div>
                 <PreviousLink>
-                  {isLoading ? 'Loading...' : <span>↑ Load previous</span>}
+                  {isLoading ? t('skeleton.search.results.loading') : <span>↑ {t('skeleton.search.results.loadPrevious')}</span>}
                 </PreviousLink>
               </div>
               <div>
@@ -144,7 +148,7 @@ function SearchResultsProducts({
               </div>
               <div>
                 <NextLink>
-                  {isLoading ? 'Loading...' : <span>Load more ↓</span>}
+                  {isLoading ? t('skeleton.search.results.loading') : <span>{t('skeleton.search.results.loadMore')} ↓</span>}
                 </NextLink>
               </div>
             </div>
@@ -157,5 +161,6 @@ function SearchResultsProducts({
 }
 
 function SearchResultsEmpty() {
-  return <p>No results, try a different search.</p>;
+  const {t} = useTranslation();
+  return <p>{t('skeleton.search.results.empty')}</p>;
 }

@@ -1,6 +1,7 @@
 import {Suspense} from 'react';
 import {Await, NavLink} from 'react-router';
 import type {FooterQuery, HeaderQuery} from 'storefrontapi.generated';
+import {useTranslation} from 'react-i18next';
 
 interface FooterProps {
   footer: Promise<FooterQuery | null>;
@@ -41,9 +42,11 @@ function FooterMenu({
   primaryDomainUrl: FooterProps['header']['shop']['primaryDomain']['url'];
   publicStoreDomain: string;
 }) {
+  const {t} = useTranslation();
+
   return (
     <nav className="footer-menu" role="navigation">
-      {(menu || FALLBACK_FOOTER_MENU).items.map((item) => {
+      {(menu || FALLBACK_FOOTER_MENU(t)).items.map((item) => {
         if (!item.url) return null;
         // if the url is internal, we strip the domain
         const url =
@@ -73,14 +76,14 @@ function FooterMenu({
   );
 }
 
-const FALLBACK_FOOTER_MENU = {
+const FALLBACK_FOOTER_MENU = (t: (key: string) => string) => ({
   id: 'gid://shopify/Menu/199655620664',
   items: [
     {
       id: 'gid://shopify/MenuItem/461633060920',
       resourceId: 'gid://shopify/ShopPolicy/23358046264',
       tags: [],
-      title: 'Privacy Policy',
+      title: t('skeleton.footer.fallback.privacyPolicy'),
       type: 'SHOP_POLICY',
       url: '/policies/privacy-policy',
       items: [],
@@ -89,7 +92,7 @@ const FALLBACK_FOOTER_MENU = {
       id: 'gid://shopify/MenuItem/461633093688',
       resourceId: 'gid://shopify/ShopPolicy/23358013496',
       tags: [],
-      title: 'Refund Policy',
+      title: t('skeleton.footer.fallback.refundPolicy'),
       type: 'SHOP_POLICY',
       url: '/policies/refund-policy',
       items: [],
@@ -98,7 +101,7 @@ const FALLBACK_FOOTER_MENU = {
       id: 'gid://shopify/MenuItem/461633126456',
       resourceId: 'gid://shopify/ShopPolicy/23358111800',
       tags: [],
-      title: 'Shipping Policy',
+      title: t('skeleton.footer.fallback.shippingPolicy'),
       type: 'SHOP_POLICY',
       url: '/policies/shipping-policy',
       items: [],
@@ -107,13 +110,13 @@ const FALLBACK_FOOTER_MENU = {
       id: 'gid://shopify/MenuItem/461633159224',
       resourceId: 'gid://shopify/ShopPolicy/23358079032',
       tags: [],
-      title: 'Terms of Service',
+      title: t('skeleton.footer.fallback.termsOfService'),
       type: 'SHOP_POLICY',
       url: '/policies/terms-of-service',
       items: [],
     },
   ],
-};
+});
 
 function activeLinkStyle({
   isActive,

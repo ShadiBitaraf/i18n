@@ -195,6 +195,8 @@ export function ErrorBoundary() {
     errorMessage = error.message;
   }
 
+  // Note: i18n is not available in ErrorBoundary since it's outside the normal React tree
+  // You would need to implement error boundary i18n separately if needed
   return (
     <div className="route-error">
       <h1>Oops</h1>

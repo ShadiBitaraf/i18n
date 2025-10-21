@@ -1,0 +1,216 @@
+{
+  "skeleton": {
+    "header": {
+      "menu": {
+        "home": "Home"
+      },
+      "account": {
+        "signIn": "Sign in",
+        "account": "Account"
+      },
+      "search": {
+        "button": "Search"
+      },
+      "cart": {
+        "badge": "Cart {{count}}"
+      }
+    },
+    "cart": {
+      "page": {
+        "heading": "Cart"
+      },
+      "empty": {
+        "message": "Looks like you haven't added anything yet, let's get you started!",
+        "continueShopping": "Continue shopping →"
+      },
+      "summary": {
+        "totals": "Totals",
+        "subtotal": "Subtotal"
+      },
+      "checkout": {
+        "continueButton": "Continue to Checkout →"
+      },
+      "discounts": {
+        "label": "Discount(s)",
+        "placeholder": "Discount code"
+      },
+      "giftCards": {
+        "label": "Applied Gift Card(s)",
+        "placeholder": "Gift card code"
+      },
+      "lineItem": {
+        "quantityLabel": "Quantity: {{quantity}}",
+        "decreaseQuantity": "Decrease quantity",
+        "increaseQuantity": "Increase quantity"
+      },
+      "common": {
+        "removeButton": "Remove",
+        "applyButton": "Apply"
+      }
+    },
+    "account": {
+      "layout": {
+        "welcomeName": "Welcome, {{firstName}}",
+        "welcome": "Welcome to your account.",
+        "accountDetails": "Account Details",
+        "menu": {
+          "orders": "Orders",
+          "profile": "Profile",
+          "addresses": "Addresses",
+          "signOut": "Sign out"
+        }
+      },
+      "profile": {
+        "heading": "My profile",
+        "personalInfo": "Personal information",
+        "firstName": "First name",
+        "lastName": "Last name",
+        "updateButton": "Update",
+        "updatingButton": "Updating"
+      },
+      "orders": {
+        "noOrdersFound": "No orders found matching your search.",
+        "clearFilters": "Clear filters →",
+        "noOrdersYet": "You haven't placed any orders yet.",
+        "startShopping": "Start Shopping →",
+        "searchAriaLabel": "Search orders",
+        "filterOrdersLegend": "Filter Orders",
+        "orderNumberPlaceholder": "Order #",
+        "orderNumberLabel": "Order number",
+        "confirmationNumberPlaceholder": "Confirmation #",
+        "confirmationNumberLabel": "Confirmation number",
+        "searchButton": "Search",
+        "searchingButton": "Searching",
+        "clearButton": "Clear",
+        "confirmationLabel": "Confirmation: {{confirmationNumber}}",
+        "viewOrderLink": "View Order →"
+      },
+      "orderDetail": {
+        "orderHeading": "Order {{name}}",
+        "placedOn": "Placed on {{date}}",
+        "confirmation": "Confirmation: {{confirmationNumber}}",
+        "table": {
+          "product": "Product",
+          "price": "Price",
+          "quantity": "Quantity",
+          "total": "Total",
+          "discounts": "Discounts",
+          "percentOff": "-{{percentage}}% OFF",
+          "subtotal": "Subtotal",
+          "tax": "Tax"
+        },
+        "shippingAddress": "Shipping Address",
+        "noShippingAddress": "No shipping address defined",
+        "status": "Status",
+        "viewOrderStatus": "View Order Status →"
+      },
+      "addresses": {
+        "heading": "Addresses",
+        "noAddresses": "You have no addresses saved.",
+        "createLegend": "Create address",
+        "existingLegend": "Existing addresses",
+        "createButton": "Create",
+        "creatingButton": "Creating",
+        "saveButton": "Save",
+        "savingButton": "Saving",
+        "deleteButton": "Delete",
+        "deletingButton": "Deleting",
+        "form": {
+          "firstNameLabel": "First name*",
+          "firstName": "First name",
+          "lastNameLabel": "Last name*",
+          "lastName": "Last name",
+          "company": "Company",
+          "addressLineLabel": "Address line*",
+          "addressLine1": "Address line 1",
+          "addressLine1Placeholder": "Address line 1*",
+          "addressLine2": "Address line 2",
+          "cityLabel": "City*",
+          "city": "City",
+          "stateProvinceLabel": "State / Province*",
+          "stateProvince": "State / Province",
+          "zipPostalLabel": "Zip / Postal Code*",
+          "zip": "Zip",
+          "zipPostal": "Zip / Postal Code",
+          "countryCodeLabel": "Country Code*",
+          "countryCode": "territoryCode",
+          "country": "Country",
+          "phone": "Phone",
+          "phoneNumber": "Phone Number",
+          "setAsDefault": "Set as default address"
+        }
+      }
+    },
+    "product": {
+      "form": {
+        "addToCart": "Add to cart",
+        "soldOut": "Sold out"
+      },
+      "detail": {
+        "descriptionHeading": "Description"
+      }
+    },
+    "search": {
+      "heading": "Search",
+      "placeholder": "Search…",
+      "button": "Search",
+      "results": {
+        "articlesHeading": "Articles",
+        "pagesHeading": "Pages",
+        "productsHeading": "Products",
+        "loading": "Loading...",
+        "loadPrevious": "Load previous",
+        "loadMore": "Load more",
+        "empty": "No results, try a different search."
+      },
+      "predictive": {
+        "articles": "Articles",
+        "collections": "Collections",
+        "pages": "Pages",
+        "products": "Products",
+        "noResults": "No results found for"
+      }
+    },
+    "policies": {
+      "heading": "Policies",
+      "backLink": "← Back to Policies"
+    },
+    "blogs": {
+      "heading": "Blogs"
+    },
+    "pagination": {
+      "loading": "Loading...",
+      "loadPrevious": "Load previous",
+      "loadMore": "Load more"
+    },
+    "home": {
+      "recommendedProducts": "Recommended Products",
+      "loading": "Loading..."
+    },
+    "collections": {
+      "heading": "Collections",
+      "allProducts": "Products"
+    },
+    "aside": {
+      "closeLabel": "Close"
+    },
+    "footer": {
+      "fallback": {
+        "privacyPolicy": "Privacy Policy",
+        "refundPolicy": "Refund Policy",
+        "shippingPolicy": "Shipping Policy",
+        "termsOfService": "Terms of Service"
+      }
+    },
+    "pageLayout": {
+      "cartHeading": "CART",
+      "loadingCart": "Loading cart ...",
+      "searchHeading": "SEARCH",
+      "searchPlaceholder": "Search",
+      "searchButton": "Search",
+      "loading": "Loading...",
+      "viewAllResults": "View all results for",
+      "menuHeading": "MENU"
+    }
+  }
+}

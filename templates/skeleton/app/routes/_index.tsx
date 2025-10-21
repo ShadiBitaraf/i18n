@@ -11,6 +11,7 @@ import type {
   RecommendedProductsQuery,
 } from 'storefrontapi.generated';
 import {ProductItem} from '~/components/ProductItem';
+import {useTranslation} from 'react-i18next';
 
 export const meta: Route.MetaFunction = () => {
   return [{title: 'Hydrogen | Home'}];
@@ -97,10 +98,11 @@ function RecommendedProducts({
 }: {
   products: Promise<RecommendedProductsQuery | null>;
 }) {
+  const {t} = useTranslation();
   return (
     <div className="recommended-products">
-      <h2>Recommended Products</h2>
-      <Suspense fallback={<div>Loading...</div>}>
+      <h2>{t('skeleton.home.recommendedProducts')}</h2>
+      <Suspense fallback={<div>{t('skeleton.home.loading')}</div>}>
         <Await resolve={products}>
           {(response) => (
             <div className="recommended-products-grid">

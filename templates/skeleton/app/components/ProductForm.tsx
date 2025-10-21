@@ -7,6 +7,7 @@ import type {
 import {AddToCartButton} from './AddToCartButton';
 import {useAside} from './Aside';
 import type {ProductFragment} from 'storefrontapi.generated';
+import {useTranslation} from 'react-i18next';
 
 export function ProductForm({
   productOptions,
@@ -15,6 +16,7 @@ export function ProductForm({
   productOptions: MappedProductOptions[];
   selectedVariant: ProductFragment['selectedOrFirstAvailableVariant'];
 }) {
+  const {t} = useTranslation();
   const navigate = useNavigate();
   const {open} = useAside();
   return (
@@ -118,7 +120,7 @@ export function ProductForm({
             : []
         }
       >
-        {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
+        {selectedVariant?.availableForSale ? t('skeleton.product.form.addToCart') : t('skeleton.product.form.soldOut')}
       </AddToCartButton>
     </div>
   );

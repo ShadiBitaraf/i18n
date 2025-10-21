@@ -17,6 +17,7 @@ import {
   DELETE_ADDRESS_MUTATION,
   CREATE_ADDRESS_MUTATION,
 } from '~/graphql/customer-account/CustomerAddressMutations';
+import {useTranslation} from 'react-i18next';
 
 export type ActionResponse = {
   addressId?: string | null;
@@ -257,19 +258,20 @@ export async function action({request, context}: Route.ActionArgs) {
 }
 
 export default function Addresses() {
+  const {t} = useTranslation();
   const {customer} = useOutletContext<{customer: CustomerFragment}>();
   const {defaultAddress, addresses} = customer;
 
   return (
     <div className="account-addresses">
-      <h2>Addresses</h2>
+      <h2>{t('skeleton.account.addresses.heading')}</h2>
       <br />
       {!addresses.nodes.length ? (
-        <p>You have no addresses saved.</p>
+        <p>{t('skeleton.account.addresses.noAddresses')}</p>
       ) : (
         <div>
           <div>
-            <legend>Create address</legend>
+            <legend>{t('skeleton.account.addresses.createLegend')}</legend>
             <NewAddressForm />
           </div>
           <br />
@@ -286,6 +288,7 @@ export default function Addresses() {
 }
 
 function NewAddressForm() {
+  const {t} = useTranslation();
   const newAddress = {
     address1: '',
     address2: '',
@@ -313,7 +316,7 @@ function NewAddressForm() {
             formMethod="POST"
             type="submit"
           >
-            {stateForMethod('POST') !== 'idle' ? 'Creating' : 'Create'}
+            {stateForMethod('POST') !== 'idle' ? t('skeleton.account.addresses.creatingButton') : t('skeleton.account.addresses.createButton')}
           </button>
         </div>
       )}
@@ -325,9 +328,10 @@ function ExistingAddresses({
   addresses,
   defaultAddress,
 }: Pick<CustomerFragment, 'addresses' | 'defaultAddress'>) {
+  const {t} = useTranslation();
   return (
     <div>
-      <legend>Existing addresses</legend>
+      <legend>{t('skeleton.account.addresses.existingLegend')}</legend>
       {addresses.nodes.map((address) => (
         <AddressForm
           key={address.id}
@@ -342,14 +346,14 @@ function ExistingAddresses({
                 formMethod="PUT"
                 type="submit"
               >
-                {stateForMethod('PUT') !== 'idle' ? 'Saving' : 'Save'}
+                {stateForMethod('PUT') !== 'idle' ? t('skeleton.account.addresses.savingButton') : t('skeleton.account.addresses.saveButton')}
               </button>
               <button
                 disabled={stateForMethod('DELETE') !== 'idle'}
                 formMethod="DELETE"
                 type="submit"
               >
-                {stateForMethod('DELETE') !== 'idle' ? 'Deleting' : 'Delete'}
+                {stateForMethod('DELETE') !== 'idle' ? t('skeleton.account.addresses.deletingButton') : t('skeleton.account.addresses.deleteButton')}
               </button>
             </div>
           )}
@@ -372,6 +376,7 @@ export function AddressForm({
     stateForMethod: (method: 'PUT' | 'POST' | 'DELETE') => Fetcher['state'];
   }) => React.ReactNode;
 }) {
+  const {t} = useTranslation();
   const {state, formMethod} = useNavigation();
   const action = useActionData<ActionResponse>();
   const error = action?.error?.[addressId];
@@ -380,107 +385,107 @@ export function AddressForm({
     <Form id={addressId}>
       <fieldset>
         <input type="hidden" name="addressId" defaultValue={addressId} />
-        <label htmlFor="firstName">First name*</label>
+        <label htmlFor="firstName">{t('skeleton.account.addresses.form.firstNameLabel')}</label>
         <input
-          aria-label="First name"
+          aria-label={t('skeleton.account.addresses.form.firstName')}
           autoComplete="given-name"
           defaultValue={address?.firstName ?? ''}
           id="firstName"
           name="firstName"
-          placeholder="First name"
+          placeholder={t('skeleton.account.addresses.form.firstName')}
           required
           type="text"
         />
-        <label htmlFor="lastName">Last name*</label>
+        <label htmlFor="lastName">{t('skeleton.account.addresses.form.lastNameLabel')}</label>
         <input
-          aria-label="Last name"
+          aria-label={t('skeleton.account.addresses.form.lastName')}
           autoComplete="family-name"
           defaultValue={address?.lastName ?? ''}
           id="lastName"
           name="lastName"
-          placeholder="Last name"
+          placeholder={t('skeleton.account.addresses.form.lastName')}
           required
           type="text"
         />
-        <label htmlFor="company">Company</label>
+        <label htmlFor="company">{t('skeleton.account.addresses.form.company')}</label>
         <input
-          aria-label="Company"
+          aria-label={t('skeleton.account.addresses.form.company')}
           autoComplete="organization"
           defaultValue={address?.company ?? ''}
           id="company"
           name="company"
-          placeholder="Company"
+          placeholder={t('skeleton.account.addresses.form.company')}
           type="text"
         />
-        <label htmlFor="address1">Address line*</label>
+        <label htmlFor="address1">{t('skeleton.account.addresses.form.addressLineLabel')}</label>
         <input
-          aria-label="Address line 1"
+          aria-label={t('skeleton.account.addresses.form.addressLine1')}
           autoComplete="address-line1"
           defaultValue={address?.address1 ?? ''}
           id="address1"
           name="address1"
-          placeholder="Address line 1*"
+          placeholder={t('skeleton.account.addresses.form.addressLine1Placeholder')}
           required
           type="text"
         />
-        <label htmlFor="address2">Address line 2</label>
+        <label htmlFor="address2">{t('skeleton.account.addresses.form.addressLine2')}</label>
         <input
-          aria-label="Address line 2"
+          aria-label={t('skeleton.account.addresses.form.addressLine2')}
           autoComplete="address-line2"
           defaultValue={address?.address2 ?? ''}
           id="address2"
           name="address2"
-          placeholder="Address line 2"
+          placeholder={t('skeleton.account.addresses.form.addressLine2')}
           type="text"
         />
-        <label htmlFor="city">City*</label>
+        <label htmlFor="city">{t('skeleton.account.addresses.form.cityLabel')}</label>
         <input
-          aria-label="City"
+          aria-label={t('skeleton.account.addresses.form.city')}
           autoComplete="address-level2"
           defaultValue={address?.city ?? ''}
           id="city"
           name="city"
-          placeholder="City"
+          placeholder={t('skeleton.account.addresses.form.city')}
           required
           type="text"
         />
-        <label htmlFor="zoneCode">State / Province*</label>
+        <label htmlFor="zoneCode">{t('skeleton.account.addresses.form.stateProvinceLabel')}</label>
         <input
-          aria-label="State/Province"
+          aria-label={t('skeleton.account.addresses.form.stateProvince')}
           autoComplete="address-level1"
           defaultValue={address?.zoneCode ?? ''}
           id="zoneCode"
           name="zoneCode"
-          placeholder="State / Province"
+          placeholder={t('skeleton.account.addresses.form.stateProvince')}
           required
           type="text"
         />
-        <label htmlFor="zip">Zip / Postal Code*</label>
+        <label htmlFor="zip">{t('skeleton.account.addresses.form.zipPostalLabel')}</label>
         <input
-          aria-label="Zip"
+          aria-label={t('skeleton.account.addresses.form.zip')}
           autoComplete="postal-code"
           defaultValue={address?.zip ?? ''}
           id="zip"
           name="zip"
-          placeholder="Zip / Postal Code"
+          placeholder={t('skeleton.account.addresses.form.zipPostal')}
           required
           type="text"
         />
-        <label htmlFor="territoryCode">Country Code*</label>
+        <label htmlFor="territoryCode">{t('skeleton.account.addresses.form.countryCodeLabel')}</label>
         <input
-          aria-label="territoryCode"
+          aria-label={t('skeleton.account.addresses.form.countryCode')}
           autoComplete="country"
           defaultValue={address?.territoryCode ?? ''}
           id="territoryCode"
           name="territoryCode"
-          placeholder="Country"
+          placeholder={t('skeleton.account.addresses.form.country')}
           required
           type="text"
           maxLength={2}
         />
-        <label htmlFor="phoneNumber">Phone</label>
+        <label htmlFor="phoneNumber">{t('skeleton.account.addresses.form.phone')}</label>
         <input
-          aria-label="Phone Number"
+          aria-label={t('skeleton.account.addresses.form.phoneNumber')}
           autoComplete="tel"
           defaultValue={address?.phoneNumber ?? ''}
           id="phoneNumber"
@@ -496,7 +501,7 @@ export function AddressForm({
             name="defaultAddress"
             type="checkbox"
           />
-          <label htmlFor="defaultAddress">Set as default address</label>
+          <label htmlFor="defaultAddress">{t('skeleton.account.addresses.form.setAsDefault')}</label>
         </div>
         {error ? (
           <p>

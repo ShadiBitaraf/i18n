@@ -1,6 +1,7 @@
 import {useLoaderData, Link} from 'react-router';
 import type {Route} from './+types/policies._index';
 import type {PoliciesQuery, PolicyItemFragment} from 'storefrontapi.generated';
+import {useTranslation} from 'react-i18next';
 
 export async function loader({context}: Route.LoaderArgs) {
   const data: PoliciesQuery = await context.storefront.query(POLICIES_QUERY);
@@ -22,11 +23,12 @@ export async function loader({context}: Route.LoaderArgs) {
 }
 
 export default function Policies() {
+  const {t} = useTranslation();
   const {policies} = useLoaderData<typeof loader>();
 
   return (
     <div className="policies">
-      <h1>Policies</h1>
+      <h1>{t('skeleton.policies.heading')}</h1>
       <div>
         {policies.map((policy) => (
           <fieldset key={policy.id}>

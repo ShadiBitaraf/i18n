@@ -15,6 +15,7 @@ import {ProductPrice} from '~/components/ProductPrice';
 import {ProductImage} from '~/components/ProductImage';
 import {ProductForm} from '~/components/ProductForm';
 import {redirectIfHandleIsLocalized} from '~/lib/redirect';
+import {useTranslation} from 'react-i18next';
 
 export const meta: Route.MetaFunction = ({data}) => {
   return [
@@ -84,6 +85,7 @@ function loadDeferredData({context, params}: Route.LoaderArgs) {
 }
 
 export default function Product() {
+  const {t} = useTranslation();
   const {product} = useLoaderData<typeof loader>();
 
   // Optimistically selects a variant with given available variant information
@@ -121,7 +123,7 @@ export default function Product() {
         <br />
         <br />
         <p>
-          <strong>Description</strong>
+          <strong>{t('skeleton.product.detail.descriptionHeading')}</strong>
         </p>
         <br />
         <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />
