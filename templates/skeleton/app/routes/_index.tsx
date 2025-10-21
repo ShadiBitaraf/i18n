@@ -5,6 +5,7 @@ import {
 } from 'react-router';
 import type {Route} from './+types/_index';
 import {Suspense} from 'react';
+import {useTranslation} from 'react-i18next';
 import {Image} from '@shopify/hydrogen';
 import type {
   FeaturedCollectionFragment,
@@ -97,10 +98,11 @@ function RecommendedProducts({
 }: {
   products: Promise<RecommendedProductsQuery | null>;
 }) {
+  const {t} = useTranslation();
   return (
     <div className="recommended-products">
-      <h2>Recommended Products</h2>
-      <Suspense fallback={<div>Loading...</div>}>
+      <h2>{t('skeleton.home.recommendedProducts')}</h2>
+      <Suspense fallback={<div>{t('skeleton.home.loading')}</div>}>
         <Await resolve={products}>
           {(response) => (
             <div className="recommended-products-grid">

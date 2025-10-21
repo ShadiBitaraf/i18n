@@ -6,6 +6,7 @@ import {
 } from 'react-router';
 import type {Route} from './+types/account.orders._index';
 import {useRef} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Money,
   getPaginationVariables,
@@ -93,22 +94,23 @@ function OrdersTable({
 }
 
 function EmptyOrders({hasFilters = false}: {hasFilters?: boolean}) {
+  const {t} = useTranslation();
   return (
     <div>
       {hasFilters ? (
         <>
-          <p>No orders found matching your search.</p>
+          <p>{t('skeleton.account.orders.noResults')}</p>
           <br />
           <p>
-            <Link to="/account/orders">Clear filters →</Link>
+            <Link to="/account/orders">{t('skeleton.account.orders.clearFilters')}</Link>
           </p>
         </>
       ) : (
         <>
-          <p>You haven&apos;t placed any orders yet.</p>
+          <p>{t('skeleton.account.orders.noOrders')}</p>
           <br />
           <p>
-            <Link to="/collections">Start Shopping →</Link>
+            <Link to="/collections">{t('skeleton.account.orders.startShopping')}</Link>
           </p>
         </>
       )}
@@ -121,6 +123,7 @@ function OrderSearchForm({
 }: {
   currentFilters: OrderFilterParams;
 }) {
+  const {t} = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
   const navigation = useNavigation();
   const isSearching =
@@ -153,25 +156,25 @@ function OrderSearchForm({
       ref={formRef}
       onSubmit={handleSubmit}
       className="order-search-form"
-      aria-label="Search orders"
+      aria-label={t('skeleton.account.orders.filterOrders')}
     >
       <fieldset className="order-search-fieldset">
-        <legend className="order-search-legend">Filter Orders</legend>
+        <legend className="order-search-legend">{t('skeleton.account.orders.filterOrders')}</legend>
 
         <div className="order-search-inputs">
           <input
             type="search"
             name={ORDER_FILTER_FIELDS.NAME}
-            placeholder="Order #"
-            aria-label="Order number"
+            placeholder={t('skeleton.account.orders.orderNumber')}
+            aria-label={t('skeleton.account.orders.orderNumber')}
             defaultValue={currentFilters.name || ''}
             className="order-search-input"
           />
           <input
             type="search"
             name={ORDER_FILTER_FIELDS.CONFIRMATION_NUMBER}
-            placeholder="Confirmation #"
-            aria-label="Confirmation number"
+            placeholder={t('skeleton.account.orders.confirmationNumber')}
+            aria-label={t('skeleton.account.orders.confirmationNumber')}
             defaultValue={currentFilters.confirmationNumber || ''}
             className="order-search-input"
           />
@@ -179,7 +182,7 @@ function OrderSearchForm({
 
         <div className="order-search-buttons">
           <button type="submit" disabled={isSearching}>
-            {isSearching ? 'Searching' : 'Search'}
+            {isSearching ? t('skeleton.account.orders.searching') : t('skeleton.account.orders.search')}
           </button>
           {hasFilters && (
             <button
@@ -190,7 +193,7 @@ function OrderSearchForm({
                 formRef.current?.reset();
               }}
             >
-              Clear
+              {t('skeleton.account.orders.clear')}
             </button>
           )}
         </div>
@@ -200,6 +203,7 @@ function OrderSearchForm({
 }
 
 function OrderItem({order}: {order: OrderItemFragment}) {
+  const {t} = useTranslation();
   const fulfillmentStatus = flattenConnection(order.fulfillments)[0]?.status;
   return (
     <>
@@ -209,12 +213,12 @@ function OrderItem({order}: {order: OrderItemFragment}) {
         </Link>
         <p>{new Date(order.processedAt).toDateString()}</p>
         {order.confirmationNumber && (
-          <p>Confirmation: {order.confirmationNumber}</p>
+          <p>{t('skeleton.account.orders.confirmation', {confirmationNumber: order.confirmationNumber})}</p>
         )}
         <p>{order.financialStatus}</p>
         {fulfillmentStatus && <p>{fulfillmentStatus}</p>}
         <Money data={order.totalPrice} />
-        <Link to={`/account/orders/${btoa(order.id)}`}>View Order →</Link>
+        <Link to={`/account/orders/${btoa(order.id)}`}>{t('skeleton.account.orders.viewOrder')}</Link>
       </fieldset>
       <br />
     </>

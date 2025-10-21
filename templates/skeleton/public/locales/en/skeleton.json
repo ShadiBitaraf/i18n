@@ -1,0 +1,197 @@
+{
+    "skeleton": {
+        "layout": {
+            "cart": {
+                "heading": "CART",
+                "loading": "Loading cart ..."
+            },
+            "search": {
+                "heading": "SEARCH",
+                "placeholder": "Search",
+                "button": "Search",
+                "loading": "Loading...",
+                "viewAllResults": "View all results for \"{{term}}\""
+            },
+            "menu": {
+                "heading": "MENU"
+            }
+        },
+        "aside": {
+            "close": "Close"
+        },
+        "product": {
+            "addToCart": "Add to cart",
+            "soldOut": "Sold out",
+            "description": "Description"
+        },
+        "cart": {
+            "heading": "Cart",
+            "empty": "Looks like you haven't added anything yet, let's get you started!",
+            "continueShopping": "Continue shopping →",
+            "quantity": "Quantity: {{quantity}}",
+            "decreaseQuantity": "Decrease quantity",
+            "increaseQuantity": "Increase quantity",
+            "remove": "Remove",
+            "summary": {
+                "totals": "Totals",
+                "subtotal": "Subtotal",
+                "continueToCheckout": "Continue to Checkout →",
+                "discounts": "Discount(s)",
+                "remove": "Remove",
+                "discountCodePlaceholder": "Discount code",
+                "apply": "Apply",
+                "appliedGiftCards": "Applied Gift Card(s)",
+                "giftCardCodePlaceholder": "Gift card code"
+            }
+        },
+        "search": {
+            "heading": "Search",
+            "placeholder": "Search…",
+            "button": "Search",
+            "loading": "Loading...",
+            "loadPrevious": "Load previous",
+            "loadMore": "Load more",
+            "empty": "No results, try a different search.",
+            "noResults": "No results found for \"{{term}}\"",
+            "results": {
+                "articles": "Articles",
+                "pages": "Pages",
+                "products": "Products",
+                "collections": "Collections"
+            }
+        },
+        "pagination": {
+            "loading": "Loading...",
+            "loadPrevious": "Load previous",
+            "loadMore": "Load more"
+        },
+        "home": {
+            "recommendedProducts": "Recommended Products",
+            "loading": "Loading..."
+        },
+        "account": {
+            "layout": {
+                "welcome": "Welcome, {{name}}",
+                "welcomeGeneric": "Welcome to your account.",
+                "accountDetails": "Account Details",
+                "orders": "Orders",
+                "profile": "Profile",
+                "addresses": "Addresses",
+                "signOut": "Sign out"
+            },
+            "orders": {
+                "heading": "Orders",
+                "noOrders": "You haven't placed any orders yet.",
+                "noResults": "No orders found matching your search.",
+                "clearFilters": "Clear filters →",
+                "startShopping": "Start Shopping →",
+                "filterOrders": "Filter Orders",
+                "orderNumber": "Order #",
+                "confirmationNumber": "Confirmation #",
+                "search": "Search",
+                "searching": "Searching",
+                "clear": "Clear",
+                "viewOrder": "View Order →",
+                "confirmation": "Confirmation: {{confirmationNumber}}"
+            },
+            "orderDetail": {
+                "order": "Order {{name}}",
+                "placedOn": "Placed on {{date}}",
+                "confirmation": "Confirmation: {{confirmationNumber}}",
+                "product": "Product",
+                "price": "Price",
+                "quantity": "Quantity",
+                "total": "Total",
+                "discounts": "Discounts",
+                "discountOff": "-{{percentage}}% OFF",
+                "subtotal": "Subtotal",
+                "tax": "Tax",
+                "shippingAddress": "Shipping Address",
+                "noShippingAddress": "No shipping address defined",
+                "status": "Status",
+                "viewOrderStatus": "View Order Status →"
+            },
+            "addresses": {
+                "title": "Addresses",
+                "heading": "Addresses",
+                "noAddresses": "You have no addresses saved.",
+                "createAddress": "Create address",
+                "existingAddresses": "Existing addresses",
+                "create": "Create",
+                "creating": "Creating",
+                "save": "Save",
+                "saving": "Saving",
+                "delete": "Delete",
+                "deleting": "Deleting",
+                "form": {
+                    "firstNameLabel": "First name*",
+                    "firstNameAriaLabel": "First name",
+                    "firstNamePlaceholder": "First name",
+                    "lastNameLabel": "Last name*",
+                    "lastNameAriaLabel": "Last name",
+                    "lastNamePlaceholder": "Last name",
+                    "companyLabel": "Company",
+                    "companyAriaLabel": "Company",
+                    "companyPlaceholder": "Company",
+                    "address1Label": "Address line*",
+                    "address1AriaLabel": "Address line 1",
+                    "address1Placeholder": "Address line 1*",
+                    "address2Label": "Address line 2",
+                    "address2AriaLabel": "Address line 2",
+                    "address2Placeholder": "Address line 2",
+                    "cityLabel": "City*",
+                    "cityAriaLabel": "City",
+                    "cityPlaceholder": "City",
+                    "zoneCodeLabel": "State / Province*",
+                    "zoneCodeAriaLabel": "State/Province",
+                    "zoneCodePlaceholder": "State / Province",
+                    "zipLabel": "Zip / Postal Code*",
+                    "zipAriaLabel": "Zip",
+                    "zipPlaceholder": "Zip / Postal Code",
+                    "territoryCodeLabel": "Country Code*",
+                    "territoryCodeAriaLabel": "territoryCode",
+                    "territoryCodePlaceholder": "Country",
+                    "phoneLabel": "Phone",
+                    "phoneAriaLabel": "Phone Number",
+                    "phonePlaceholder": "+16135551111",
+                    "defaultAddressLabel": "Set as default address"
+                }
+            },
+            "profile": {
+                "title": "Profile",
+                "heading": "My profile",
+                "personalInformation": "Personal information",
+                "update": "Update",
+                "updating": "Updating",
+                "form": {
+                    "firstNameLabel": "First name",
+                    "firstNameAriaLabel": "First name",
+                    "firstNamePlaceholder": "First name",
+                    "lastNameLabel": "Last name",
+                    "lastNameAriaLabel": "Last name",
+                    "lastNamePlaceholder": "Last name"
+                }
+            }
+        },
+        "collection": {
+            "description": "Collection description"
+        },
+        "policies": {
+            "heading": "Policies",
+            "backToPolicies": "← Back to Policies"
+        },
+        "blogs": {
+            "heading": "Blogs"
+        },
+        "collections": {
+            "heading": "Collections"
+        },
+        "products": {
+            "heading": "Products"
+        },
+        "error": {
+            "oops": "Oops",
+            "unknown": "Unknown error"
+        }
+    }
+}

@@ -7,6 +7,7 @@ import {
 } from 'react-router';
 import type {Route} from './+types/account';
 import {CUSTOMER_DETAILS_QUERY} from '~/graphql/customer-account/CustomerDetailsQuery';
+import {useTranslation} from 'react-i18next';
 
 export function shouldRevalidate() {
   return true;
@@ -39,12 +40,13 @@ export async function loader({context}: Route.LoaderArgs) {
 
 export default function AccountLayout() {
   const {customer} = useLoaderData<typeof loader>();
+  const {t} = useTranslation();
 
   const heading = customer
     ? customer.firstName
-      ? `Welcome, ${customer.firstName}`
-      : `Welcome to your account.`
-    : 'Account Details';
+      ? t('skeleton.account.layout.welcome', {name: customer.firstName})
+      : t('skeleton.account.layout.welcomeGeneric')
+    : t('skeleton.account.layout.accountDetails');
 
   return (
     <div className="account">
@@ -59,6 +61,8 @@ export default function AccountLayout() {
 }
 
 function AccountMenu() {
+  const {t} = useTranslation();
+  
   function isActiveStyle({
     isActive,
     isPending,
@@ -75,15 +79,15 @@ function AccountMenu() {
   return (
     <nav role="navigation">
       <NavLink to="/account/orders" style={isActiveStyle}>
-        Orders &nbsp;
+        {t('skeleton.account.layout.orders')} &nbsp;
       </NavLink>
       &nbsp;|&nbsp;
       <NavLink to="/account/profile" style={isActiveStyle}>
-        &nbsp; Profile &nbsp;
+        &nbsp; {t('skeleton.account.layout.profile')} &nbsp;
       </NavLink>
       &nbsp;|&nbsp;
       <NavLink to="/account/addresses" style={isActiveStyle}>
-        &nbsp; Addresses &nbsp;
+        &nbsp; {t('skeleton.account.layout.addresses')} &nbsp;
       </NavLink>
       &nbsp;|&nbsp;
       <Logout />
@@ -92,9 +96,11 @@ function AccountMenu() {
 }
 
 function Logout() {
+  const {t} = useTranslation();
+  
   return (
     <Form className="account-logout" method="POST" action="/account/logout">
-      &nbsp;<button type="submit">Sign out</button>
+      &nbsp;<button type="submit">{t('skeleton.account.layout.signOut')}</button>
     </Form>
   );
 }

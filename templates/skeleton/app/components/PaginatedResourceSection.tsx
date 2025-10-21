@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useTranslation} from 'react-i18next';
 import {Pagination} from '@shopify/hydrogen';
 
 /**
@@ -13,6 +14,7 @@ export function PaginatedResourceSection<NodesType>({
   children: React.FunctionComponent<{node: NodesType; index: number}>;
   resourcesClassName?: string;
 }) {
+  const {t} = useTranslation();
   return (
     <Pagination connection={connection}>
       {({nodes, isLoading, PreviousLink, NextLink}) => {
@@ -23,7 +25,7 @@ export function PaginatedResourceSection<NodesType>({
         return (
           <div>
             <PreviousLink>
-              {isLoading ? 'Loading...' : <span>↑ Load previous</span>}
+              {isLoading ? t('skeleton.pagination.loading') : <span>↑ {t('skeleton.pagination.loadPrevious')}</span>}
             </PreviousLink>
             {resourcesClassName ? (
               <div className={resourcesClassName}>{resourcesMarkup}</div>
@@ -31,7 +33,7 @@ export function PaginatedResourceSection<NodesType>({
               resourcesMarkup
             )}
             <NextLink>
-              {isLoading ? 'Loading...' : <span>Load more ↓</span>}
+              {isLoading ? t('skeleton.pagination.loading') : <span>{t('skeleton.pagination.loadMore')} ↓</span>}
             </NextLink>
           </div>
         );

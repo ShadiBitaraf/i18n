@@ -3,6 +3,7 @@ import {
   useLoaderData,
 } from 'react-router';
 import type {Route} from './+types/products.$handle';
+import {useTranslation} from 'react-i18next';
 import {
   getSelectedProductOptions,
   Analytics,
@@ -84,6 +85,7 @@ function loadDeferredData({context, params}: Route.LoaderArgs) {
 }
 
 export default function Product() {
+  const {t} = useTranslation();
   const {product} = useLoaderData<typeof loader>();
 
   // Optimistically selects a variant with given available variant information
@@ -121,7 +123,7 @@ export default function Product() {
         <br />
         <br />
         <p>
-          <strong>Description</strong>
+          <strong>{t('skeleton.product.description')}</strong>
         </p>
         <br />
         <div dangerouslySetInnerHTML={{__html: descriptionHtml}} />

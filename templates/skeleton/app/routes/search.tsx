@@ -2,6 +2,7 @@ import {
   useLoaderData,
 } from 'react-router';
 import type {Route} from './+types/search';
+import {useTranslation} from 'react-i18next';
 import {getPaginationVariables, Analytics} from '@shopify/hydrogen';
 import {SearchForm} from '~/components/SearchForm';
 import {SearchResults} from '~/components/SearchResults';
@@ -36,24 +37,25 @@ export async function loader({request, context}: Route.LoaderArgs) {
  * Renders the /search route
  */
 export default function SearchPage() {
+  const {t} = useTranslation();
   const {type, term, result, error} = useLoaderData<typeof loader>();
   if (type === 'predictive') return null;
 
   return (
     <div className="search">
-      <h1>Search</h1>
+      <h1>{t('skeleton.search.heading')}</h1>
       <SearchForm>
         {({inputRef}) => (
           <>
             <input
               defaultValue={term}
               name="q"
-              placeholder="Search…"
+              placeholder={t('skeleton.search.placeholder')}
               ref={inputRef}
               type="search"
             />
             &nbsp;
-            <button type="submit">Search</button>
+            <button type="submit">{t('skeleton.search.button')}</button>
           </>
         )}
       </SearchForm>
